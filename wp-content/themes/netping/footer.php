@@ -29,6 +29,10 @@
 
 <?php wp_footer(); ?>
 
+<!-- кнопка помощи -->
+<a href="#open_support_modal" class="quest-button">?</a>
+<!-- /кнопка помощи -->
+
 <!-- форма обратный звонок-->
 <div id="open_callback_modal" class="modalDialog" tabindex="-1">
 	<a href="#close" class="background_close"></a>

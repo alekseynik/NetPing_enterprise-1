@@ -1,0 +1,42 @@
+2021-07-05T11:46:27+00:00 CRITICAL Uncaught Error: Call to undefined method WP_Post::get_ID() in /var/www/netping.xa6.ru/wp-content/themes/netping/woocommerce/single-product/tabs/description.php:32
+Stack trace:
+#0 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(345): include()
+#1 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-template-functions.php(1761): wc_get_template()
+#2 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/templates/single-product/tabs/tabs.php(47): woocommerce_product_description_tab()
+#3 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(345): include('/var/www/netpin...')
+#4 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-template-functions.php(1544): wc_get_template()
+#5 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(292): woocommerce_output_product_data_tabs()
+#6 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(316): WP_Hook->apply_filters()
+#7 /var/www/netping.xa6.ru/wp-includes/plugin.php(48 в /var/www/netping.xa6.ru/wp-content/themes/netping/woocommerce/single-product/tabs/description.php на строке 32
+
+2021-07-05T11:49:31+00:00 CRITICAL Uncaught Error: Call to undefined method WP_Post::get_ID() in /var/www/netping.xa6.ru/wp-content/themes/netping/woocommerce/single-product/tabs/description.php:31
+Stack trace:
+#0 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(345): include()
+#1 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-template-functions.php(1761): wc_get_template()
+#2 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/templates/single-product/tabs/tabs.php(47): woocommerce_product_description_tab()
+#3 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(345): include('/var/www/netpin...')
+#4 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-template-functions.php(1544): wc_get_template()
+#5 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(292): woocommerce_output_product_data_tabs()
+#6 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(316): WP_Hook->apply_filters()
+#7 /var/www/netping.xa6.ru/wp-includes/plugin.php(48 в /var/www/netping.xa6.ru/wp-content/themes/netping/woocommerce/single-product/tabs/description.php на строке 31
+
+2021-07-05T11:58:39+00:00 CRITICAL Cannot use [] for reading в /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php на строке 497
+
+2021-07-05T11:58:58+00:00 CRITICAL Cannot use [] for reading в /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php на строке 497
+
+2021-07-05T11:59:04+00:00 CRITICAL Cannot use [] for reading в /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php на строке 497
+
+2021-07-05T11:59:07+00:00 CRITICAL Cannot use [] for reading в /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php на строке 497
+
+2021-07-05T11:59:07+00:00 CRITICAL Cannot use [] for reading в /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php на строке 497
+
+2021-07-05T12:07:51+00:00 CRITICAL Cannot use [] for reading в /var/www/netping.xa6.ru/wp-content/themes/netping/woocommerce/single-product/tabs/description.php на строке 40
+
+2021-07-05T12:07:57+00:00 CRITICAL Cannot use [] for reading в /var/www/netping.xa6.ru/wp-content/themes/netping/woocommerce/single-product/tabs/description.php на строке 40
+
+2021-07-05T12:20:42+00:00 CRITICAL Cannot use [] for reading в /var/www/netping.xa6.ru/wp-content/themes/netping/woocommerce/single-product/tabs/description.php на строке 41
+
+2021-07-05T12:21:00+00:00 CRITICAL Cannot use [] for reading в /var/www/netping.xa6.ru/wp-content/themes/netping/woocommerce/single-product/tabs/description.php на строке 41
+
+2021-07-05T12:21:38+00:00 CRITICAL Cannot use [] for reading в /var/www/netping.xa6.ru/wp-content/themes/netping/woocommerce/single-product/tabs/description.php на строке 35
+

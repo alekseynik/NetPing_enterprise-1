@@ -42,11 +42,11 @@
 		</script>
 	<?php endif ?>
 	
-	<script>
+	<!-- <script>
 		window.addEventListener('scroll', () => { 
 			document.body.style.setProperty('--scroll',window.pageYOffset / (document.	body.offsetHeight - window.innerHeight));
 		}, false);
-	</script>
+	</script> -->
 
 
 	<?php wp_head(); ?>

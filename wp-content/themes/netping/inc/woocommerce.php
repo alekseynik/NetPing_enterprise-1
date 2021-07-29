@@ -21,7 +21,7 @@ function netping_woocommerce_setup() {
 		'woocommerce',
 		array(
 			'thumbnail_image_width' => 150,
-			'single_image_width'    => 300,
+			'single_image_width'    => 560,
 			'product_grid'          => array(
 				'default_rows'    => 3,
 				'min_rows'        => 1,
@@ -31,7 +31,7 @@ function netping_woocommerce_setup() {
 			),
 		)
 	);
-	add_theme_support( 'wc-product-gallery-zoom' );
+	// add_theme_support( 'wc-product-gallery-zoom' );
 	add_theme_support( 'wc-product-gallery-lightbox' );
 	add_theme_support( 'wc-product-gallery-slider' );
 }
@@ -118,7 +118,7 @@ if ( ! function_exists( 'netping_woocommerce_wrapper_before' ) ) {
 	 */
 	function netping_woocommerce_wrapper_before() {
 		?>
-			<main id="primary" class="site-main">
+			<main id="primary" class="site-main col-full">
 		<?php
 	}
 }
@@ -225,3 +225,4 @@ if ( ! function_exists( 'netping_woocommerce_header_cart' ) ) {
 		<?php
 	}
 }
+

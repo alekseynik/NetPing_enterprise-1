@@ -1,0 +1,72 @@
+2021-07-23T21:23:43+00:00 CRITICAL Uncaught Error: Call to undefined method WC_Product_Simple::short_description() in /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php:557
+Stack trace:
+#0 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(292): add_short_desc_to_archive_product()
+#1 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(316): WP_Hook->apply_filters()
+#2 /var/www/netping.xa6.ru/wp-includes/plugin.php(484): WP_Hook->do_action()
+#3 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/templates/content-product.php(57): do_action()
+#4 /var/www/netping.xa6.ru/wp-includes/template.php(732): require('/var/www/netpin...')
+#5 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(284): load_template()
+#6 /var/www/netping.xa6.ru/wp-content/themes/netping/woocommerce/archive-product.php(83): wc_get_template_part()
+#7 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(345): include('/var/www/netpin...')
+#8 /var/www/netping.xa6.ru/wp-content/plugins/woocomme в /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php на строке 557
+
+2021-07-23T21:23:51+00:00 CRITICAL Uncaught Error: Call to undefined method WC_Product_Simple::short_description() in /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php:557
+Stack trace:
+#0 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(292): add_short_desc_to_archive_product()
+#1 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(316): WP_Hook->apply_filters()
+#2 /var/www/netping.xa6.ru/wp-includes/plugin.php(484): WP_Hook->do_action()
+#3 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/templates/content-product.php(57): do_action()
+#4 /var/www/netping.xa6.ru/wp-includes/template.php(732): require('/var/www/netpin...')
+#5 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(284): load_template()
+#6 /var/www/netping.xa6.ru/wp-content/themes/netping/woocommerce/archive-product.php(83): wc_get_template_part()
+#7 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(345): include('/var/www/netpin...')
+#8 /var/www/netping.xa6.ru/wp-content/plugins/woocomme в /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php на строке 557
+
+2021-07-23T21:23:54+00:00 CRITICAL Uncaught Error: Call to undefined method WC_Product_Simple::short_description() in /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php:557
+Stack trace:
+#0 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(292): add_short_desc_to_archive_product()
+#1 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(316): WP_Hook->apply_filters()
+#2 /var/www/netping.xa6.ru/wp-includes/plugin.php(484): WP_Hook->do_action()
+#3 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/templates/content-product.php(57): do_action()
+#4 /var/www/netping.xa6.ru/wp-includes/template.php(732): require('/var/www/netpin...')
+#5 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(284): load_template()
+#6 /var/www/netping.xa6.ru/wp-content/themes/netping/woocommerce/archive-product.php(83): wc_get_template_part()
+#7 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(345): include('/var/www/netpin...')
+#8 /var/www/netping.xa6.ru/wp-content/plugins/woocomme в /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php на строке 557
+
+2021-07-23T21:23:58+00:00 CRITICAL Uncaught Error: Call to undefined method WC_Product_Simple::short_description() in /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php:557
+Stack trace:
+#0 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(292): add_short_desc_to_archive_product()
+#1 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(316): WP_Hook->apply_filters()
+#2 /var/www/netping.xa6.ru/wp-includes/plugin.php(484): WP_Hook->do_action()
+#3 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/templates/content-product.php(57): do_action()
+#4 /var/www/netping.xa6.ru/wp-includes/template.php(732): require('/var/www/netpin...')
+#5 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(284): load_template()
+#6 /var/www/netping.xa6.ru/wp-content/themes/netping/woocommerce/archive-product.php(83): wc_get_template_part()
+#7 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(345): include('/var/www/netpin...')
+#8 /var/www/netping.xa6.ru/wp-content/plugins/woocomme в /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php на строке 557
+
+2021-07-23T21:24:01+00:00 CRITICAL Uncaught Error: Call to undefined method WC_Product_Simple::short_description() in /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php:557
+Stack trace:
+#0 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(292): add_short_desc_to_archive_product()
+#1 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(316): WP_Hook->apply_filters()
+#2 /var/www/netping.xa6.ru/wp-includes/plugin.php(484): WP_Hook->do_action()
+#3 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/templates/content-product.php(57): do_action()
+#4 /var/www/netping.xa6.ru/wp-includes/template.php(732): require('/var/www/netpin...')
+#5 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(284): load_template()
+#6 /var/www/netping.xa6.ru/wp-content/themes/netping/woocommerce/archive-product.php(83): wc_get_template_part()
+#7 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(345): include('/var/www/netpin...')
+#8 /var/www/netping.xa6.ru/wp-content/plugins/woocomme в /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php на строке 557
+
+2021-07-23T21:25:05+00:00 CRITICAL Uncaught Error: Call to undefined method WC_Product_Simple::short_description() in /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php:557
+Stack trace:
+#0 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(292): add_short_desc_to_archive_product()
+#1 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(316): WP_Hook->apply_filters()
+#2 /var/www/netping.xa6.ru/wp-includes/plugin.php(484): WP_Hook->do_action()
+#3 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/templates/content-product.php(57): do_action()
+#4 /var/www/netping.xa6.ru/wp-includes/template.php(732): require('/var/www/netpin...')
+#5 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(284): load_template()
+#6 /var/www/netping.xa6.ru/wp-content/themes/netping/woocommerce/archive-product.php(83): wc_get_template_part()
+#7 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(345): include('/var/www/netpin...')
+#8 /var/www/netping.xa6.ru/wp-content/plugins/woocomme в /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php на строке 557
+

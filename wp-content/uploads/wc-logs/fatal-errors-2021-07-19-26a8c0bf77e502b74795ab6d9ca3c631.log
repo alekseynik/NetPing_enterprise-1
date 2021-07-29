@@ -1,0 +1,84 @@
+2021-07-19T21:37:34+00:00 CRITICAL Uncaught Error: Call to a member function is_purchasable() on string in /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php:535
+Stack trace:
+#0 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(294): netping_add_to_cart_text()
+#1 /var/www/netping.xa6.ru/wp-includes/plugin.php(212): WP_Hook->apply_filters()
+#2 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/class-wc-product-simple.php(62): apply_filters()
+#3 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/templates/loop/add-to-cart.php(32): WC_Product_Simple->add_to_cart_text()
+#4 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(345): include('/var/www/netpin...')
+#5 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-template-functions.php(1309): wc_get_template()
+#6 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(292): woocommerce_template_loop_add_to_cart()
+#7 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(316): WP_Hook->apply_filters()
+#8 /var/www/netpin в /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php на строке 535
+
+2021-07-19T21:37:34+00:00 CRITICAL Uncaught Error: Call to a member function is_purchasable() on string in /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php:535
+Stack trace:
+#0 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(294): netping_add_to_cart_text()
+#1 /var/www/netping.xa6.ru/wp-includes/plugin.php(212): WP_Hook->apply_filters()
+#2 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/class-wc-product-simple.php(62): apply_filters()
+#3 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/templates/loop/add-to-cart.php(32): WC_Product_Simple->add_to_cart_text()
+#4 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(345): include('/var/www/netpin...')
+#5 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-template-functions.php(1309): wc_get_template()
+#6 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(292): woocommerce_template_loop_add_to_cart()
+#7 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(316): WP_Hook->apply_filters()
+#8 /var/www/netpin в /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php на строке 535
+
+2021-07-19T21:37:59+00:00 CRITICAL Uncaught Error: Call to a member function is_purchasable() on string in /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php:535
+Stack trace:
+#0 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(294): netping_add_to_cart_text()
+#1 /var/www/netping.xa6.ru/wp-includes/plugin.php(212): WP_Hook->apply_filters()
+#2 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/class-wc-product-simple.php(62): apply_filters()
+#3 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/templates/loop/add-to-cart.php(32): WC_Product_Simple->add_to_cart_text()
+#4 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(345): include('/var/www/netpin...')
+#5 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-template-functions.php(1309): wc_get_template()
+#6 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(292): woocommerce_template_loop_add_to_cart()
+#7 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(316): WP_Hook->apply_filters()
+#8 /var/www/netpin в /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php на строке 535
+
+2021-07-19T21:37:59+00:00 CRITICAL Uncaught Error: Call to a member function is_purchasable() on string in /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php:535
+Stack trace:
+#0 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(294): netping_add_to_cart_text()
+#1 /var/www/netping.xa6.ru/wp-includes/plugin.php(212): WP_Hook->apply_filters()
+#2 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/class-wc-product-simple.php(62): apply_filters()
+#3 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/templates/loop/add-to-cart.php(32): WC_Product_Simple->add_to_cart_text()
+#4 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(345): include('/var/www/netpin...')
+#5 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-template-functions.php(1309): wc_get_template()
+#6 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(292): woocommerce_template_loop_add_to_cart()
+#7 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(316): WP_Hook->apply_filters()
+#8 /var/www/netpin в /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php на строке 535
+
+2021-07-19T21:38:22+00:00 CRITICAL Uncaught Error: Call to a member function is_purchasable() on string in /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php:535
+Stack trace:
+#0 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(294): netping_add_to_cart_text()
+#1 /var/www/netping.xa6.ru/wp-includes/plugin.php(212): WP_Hook->apply_filters()
+#2 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/class-wc-product-simple.php(62): apply_filters()
+#3 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/templates/loop/add-to-cart.php(32): WC_Product_Simple->add_to_cart_text()
+#4 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(345): include('/var/www/netpin...')
+#5 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-template-functions.php(1309): wc_get_template()
+#6 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(292): woocommerce_template_loop_add_to_cart()
+#7 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(316): WP_Hook->apply_filters()
+#8 /var/www/netpin в /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php на строке 535
+
+2021-07-19T21:38:48+00:00 CRITICAL Uncaught Error: Call to a member function is_purchasable() on string in /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php:535
+Stack trace:
+#0 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(294): netping_add_to_cart_text()
+#1 /var/www/netping.xa6.ru/wp-includes/plugin.php(212): WP_Hook->apply_filters()
+#2 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/class-wc-product-simple.php(62): apply_filters()
+#3 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/templates/loop/add-to-cart.php(32): WC_Product_Simple->add_to_cart_text()
+#4 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(345): include('/var/www/netpin...')
+#5 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-template-functions.php(1309): wc_get_template()
+#6 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(292): woocommerce_template_loop_add_to_cart()
+#7 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(316): WP_Hook->apply_filters()
+#8 /var/www/netpin в /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php на строке 535
+
+2021-07-19T21:59:42+00:00 CRITICAL Uncaught Error: Call to undefined function printr() in /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php:535
+Stack trace:
+#0 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(292): netping_archive_excerpt()
+#1 /var/www/netping.xa6.ru/wp-includes/class-wp-hook.php(316): WP_Hook->apply_filters()
+#2 /var/www/netping.xa6.ru/wp-includes/plugin.php(484): WP_Hook->do_action()
+#3 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/templates/content-product.php(57): do_action()
+#4 /var/www/netping.xa6.ru/wp-includes/template.php(732): require('/var/www/netpin...')
+#5 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(284): load_template()
+#6 /var/www/netping.xa6.ru/wp-content/themes/netping/woocommerce/archive-product.php(83): wc_get_template_part()
+#7 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/includes/wc-core-functions.php(345): include('/var/www/netpin...')
+#8 /var/www/netping.xa6.ru/wp-content/plugins/woocommerce/templates/taxonomy-product-cat.php в /var/www/netping.xa6.ru/wp-content/themes/netping/functions.php на строке 535
+

@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.0' );
+	define( '_S_VERSION', '1.3.0' );
 }
 
 if ( ! function_exists( 'netping_setup' ) ) :
@@ -148,6 +148,7 @@ function post_tag_for_news() {
  *
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
+add_action( 'widgets_init', 'netping_widgets_init' );
 function netping_widgets_init() {
 	register_sidebar(
 		array(
@@ -160,6 +161,18 @@ function netping_widgets_init() {
 			'after_title'   => '</h2>',
 		)
 	);
+
+	register_sidebar(
+        array (
+            'name' => 'Catalog sidebar',
+            'id' => 'shop',
+            'description' => 'Сайдбар на страницах каталога',
+            'before_widget' => '<div class="widget-content">',
+            'after_widget' => '</div>',
+            'before_title' => '<h3 class="widget-title h-line">',
+            'after_title' => '</h3>',
+        )
+    );
 
 	register_sidebar(
 		array(
@@ -197,17 +210,25 @@ function netping_widgets_init() {
 		)
 	);
 }
-add_action( 'widgets_init', 'netping_widgets_init' );
+
 
 
 /**
  * Enqueue scripts and styles.
  */
+add_action( 'wp_enqueue_scripts', 'netping_scripts' );
 function netping_scripts() {
-	wp_enqueue_style( 'netping-style', get_stylesheet_uri(), array(), _S_VERSION );
+	wp_enqueue_style( 'netping-style', get_stylesheet_uri(), array('netping-woocommerce-style'), _S_VERSION );
 	wp_style_add_data( 'netping-style', 'rtl', 'replace' );
 
 	wp_enqueue_script( 'netping-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
+	
+	if (is_single() && is_product() ) {
+		wp_enqueue_script( 'scrollable-tabs', get_template_directory_uri() . '/js/jquery.scrolltabs.js', array(), _S_VERSION, true );
+		wp_enqueue_script( 'scrollable-tabs-setup', get_template_directory_uri() . '/js/scrolltabs-setup.js', array(), _S_VERSION, true );
+	}
+	
+	wp_enqueue_script( 'netping-scripts', get_template_directory_uri() . '/js/npscripts.js', array(), _S_VERSION, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -217,7 +238,7 @@ function netping_scripts() {
 		wp_enqueue_script( 'home_scripts', get_template_directory_uri() . '/js/home_scripts.js', array(), _S_VERSION, true );
 	}
 }
-add_action( 'wp_enqueue_scripts', 'netping_scripts' );
+
 
 /**
  * Implement the Custom Header feature.
@@ -253,6 +274,10 @@ if ( class_exists( 'WooCommerce' ) ) {
 	require get_template_directory() . '/inc/woocommerce.php';
 }
 
+/**
+ * Load Admin meta output function
+ */
+require get_template_directory() . '/inc/admin-customizations.php';
 
 //add script for redirection to thankyou modal after cf7 successfull submit
 add_action( 'wp_footer', 'after_submit_redirect' );
@@ -265,3 +290,320 @@ function after_submit_redirect() {
 	</script>
 	<?php
 }
+
+//add Каталог to breadcrumbs
+add_filter( 'woocommerce_get_breadcrumb', function($crumbs, $Breadcrumb) {
+	if(is_woocommerce() && !is_shop() ) { //Check we got an ID (shop page is set). Added check for is_shop to prevent Home / Shop / Shop as suggested in comments
+		$new_breadcrumb = [
+			_x( 'Каталог', 'breadcrumb', 'woocommerce' ), //Title
+			get_permalink(wc_get_page_id('shop')) // URL
+		];
+		array_splice($crumbs, 1, 0, [$new_breadcrumb]); //Insert a new breadcrumb after the 'Home' crumb
+	}
+	return $crumbs;
+}, 10, 2 );
+
+
+// wrap the breadcrumb separator
+add_filter( 'woocommerce_breadcrumb_defaults', 'netping_change_breadcrumb_delimiter' );
+function netping_change_breadcrumb_delimiter( $defaults ) {
+	$defaults['delimiter'] = '<sep> &#47; </sep>';
+	return $defaults;
+}
+
+//SECTION Single product
+
+if ( is_single() ) {
+	remove_action('woocommerce_sidebar', 'woocommerce_get_sidebar', 10);
+}
+
+add_action('woocommerce_before_single_product_summary', 'single_image_summary_wrapper', 15);
+add_action('woocommerce_after_single_product_summary', 'single_image_summary_wrapper_end', 5);
+
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_title', 5);
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10);
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30);
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_sharing', 50);
+
+add_action('woocommerce_before_single_product_summary', 'woocommerce_template_single_title', 3);
+
+function single_image_summary_wrapper() {
+	echo '<div class="flex-wrapper">';
+}
+
+function single_image_summary_wrapper_end() {
+	echo '</div>';
+}
+
+//SECTION custom tabs
+
+//ANCHOR output custom tab 
+add_filter( 'woocommerce_product_tabs', 'netping_custom_tab' );
+function netping_custom_tab( $tabs ) {
+
+	//output admin custom tabs
+	if ( get_post_meta( get_the_ID(), 'tab_fields', true ) ) {
+		$custom_tabs = get_post_meta( get_the_ID(), 'tab_fields' );
+		$n = 1;
+		foreach ( $custom_tabs[0] as $custom_tab_name => $custom_tab ) {
+			
+			if ($custom_tab !== '') {
+				$tabs['custom_tab_' . strval($n)] = array(
+					'title'     => $custom_tab_name,
+					'priority'  => 70,
+					'callback'  => function() use ($custom_tab) { echo $custom_tab; },
+				);
+			}
+			$n++;
+		}
+	}
+
+	//output Compatible products custom tab
+	if ( get_post_meta( get_the_id(), '_compatible_products_ids', true ) ) {
+		$tabs['compatibles_tab'] = array(
+			'title'    => 'Совместимые устройства',
+			'priority' => 80,
+			'callback' => 'compatible_devices_list'
+		);
+	}
+
+	//output where to buy tab
+	$tabs['delivery'] = array(
+		'title'     => 'Где купить?',
+		'priority'  => 70,
+		'callback'  => 'netping_delivery_tab_content'
+	);
+
+    return $tabs;
+}
+
+function netping_delivery_tab_content() {
+	echo get_page_by_path('delivery')->post_content;
+}
+
+
+//!SECTION custom tabs
+
+// Change admin menu labels
+add_action( 'admin_menu', 'custom_change_admin_label' );
+function custom_change_admin_label() {
+    global $menu, $submenu;
+
+    $menu[26][0] = 'Устройства';
+    $submenu['edit.php?post_type=product'][5][0] = 'Все устройства';
+}
+
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+
+//SECTION compatible products on single (outputs by netping_custom_tab function)
+
+//ANCHOR add compatible products fields
+add_action( 'woocommerce_product_options_related', 'npshop_add_compatible_products_fields' );
+function npshop_add_compatible_products_fields() {
+	global $post;
+	?>
+	<p class="form-field">
+		<label for="compat_prod_ids">Совместимые устройства</label>
+		<select class="wc-product-search" multiple="multiple" style="width: 50%;" id="compat_prod_ids" name="compat_prod_ids[]" data-placeholder="Поиск по товарам" data-action="woocommerce_json_search_products_and_variations" data-exclude="<?php echo intval( $post->ID ); ?>">
+			<?php
+			$product_ids = get_post_meta( $post->ID, '_compatible_products_ids', true );
+
+			if ('' != $product_ids ) {
+				foreach ( $product_ids as $product_id ) {
+					$product = wc_get_product( $product_id );
+					if ( is_object( $product ) ) {
+						echo '<option value="' . esc_attr( $product_id ) . '"' . selected( true, true, false ) . '>' . esc_html( wp_strip_all_tags( $product->get_formatted_name() ) ) . '</option>';
+					}
+				}
+			}
+			?>
+		</select> <?php echo wc_help_tip( 'Указанные здесь товары будут отображаться на вкладке "Совместимые устройства"'); // WPCS: XSS ok. ?>
+	</p>
+
+	<?php
+}
+
+//ANCHOR save compatible products fields
+add_action( 'woocommerce_process_product_meta', 'npshop_save_compatible_products_fields' );
+function npshop_save_compatible_products_fields( $post_id ){
+    if ( isset($_POST['compat_prod_ids']) ) {
+		update_post_meta( $post_id, '_compatible_products_ids', $_POST['compat_prod_ids'] );
+	}
+
+}
+
+//ANCHOR output compatible products
+// add_action('woocommerce_after_single_product_summary', 'compatible_devices_list', 11 );
+function compatible_devices_list() {
+	global $product;
+	$compat_prod_ids = get_post_meta( $product->get_ID(), '_compatible_products_ids', true );
+
+	if ( !empty($compat_prod_ids) ) {
+			echo '<div class="compatible-devices">';
+			foreach ( $compat_prod_ids as $compat_prod_id ) {
+				$compat_product = wc_get_product($compat_prod_id);
+				?>
+				<div class="compat-product">
+					<a class="name-link" href="<?php echo $compat_product->get_permalink() ?>">
+					<?php echo $compat_product->get_image('shop_thumbnail'); ?>
+						<?php echo $compat_product->get_name(); ?>
+					</a>
+				</div>
+			<?php
+			}
+			echo '</div>';
+	}
+}
+
+//!SECTION compatible products on single
+
+//SECTION Product gallery customizations
+
+add_filter('woocommerce_single_product_carousel_options', 'update_woo_flexslider_options');
+function update_woo_flexslider_options($options) {
+    $options['directionNav'] = true;
+    $options['controlNav'] = false;
+    $options['smoothHeight'] = false;
+    $options['prevText'] = '';
+    $options['nextText'] = '';
+
+	return $options;
+}
+
+add_filter( 'woocommerce_get_image_size_single', function( $size ) {
+	return array(
+		'width' => 560,
+		'height' => 315,
+		'crop' => 0,
+	);
+} );
+
+//SECTION Product Modifications on single
+
+// save modifications fields to array
+add_action('acf/save_post', 'save_mod_fields', 20);
+function save_mod_fields( $post_id ) {
+
+	if ( get_field( 'name_mod_1' ) ) {
+		$mod_fields['mod_1'] = array( 
+			'name'   => get_field( 'name_mod_1', $post_id ),
+			'status' => get_field( 'status_mod_1', $post_id ),
+			'price'  => get_field( 'price_mod_1', $post_id ), 
+		);
+	}
+
+	if ( get_field( 'name_mod_2' ) ) {
+		$mod_fields['mod_2'] = array( 
+			'name'   => get_field( 'name_mod_2', $post_id ),
+			'status' => get_field( 'status_mod_2', $post_id ),
+			'price'  => get_field( 'price_mod_2', $post_id ), 
+		);
+	}
+	
+	if ( get_field( 'name_mod_3' ) ) {
+		$mod_fields['mod_3'] = array( 
+			'name'   => get_field( 'name_mod_3', $post_id ),
+			'status' => get_field( 'status_mod_3', $post_id ),
+			'price'  => get_field( 'price_mod_3', $post_id ), 
+		);
+	}
+
+	if ( get_field( 'name_mod_4' ) ) {
+		$mod_fields['mod_4'] = array( 
+			'name'   => get_field( 'name_mod_4', $post_id ),
+			'status' => get_field( 'status_mod_4', $post_id ),
+			'price'  => get_field( 'price_mod_4', $post_id ), 
+		);
+	}
+
+	if ( get_field( 'name_mod_5' ) ) {
+		$mod_fields['mod_5'] = array( 
+			'name'   => get_field( 'name_mod_5', $post_id ),
+			'status' => get_field( 'status_mod_5', $post_id ),
+			'price'  => get_field( 'price_mod_5', $post_id ), 
+		);
+	}
+
+	if ( get_field( 'name_mod_6' ) ) {
+		$mod_fields['mod_6'] = array( 
+			'name'   => get_field( 'name_mod_6', $post_id ),
+			'status' => get_field( 'status_mod_6', $post_id ),
+			'price'  => get_field( 'price_mod_6', $post_id ), 
+		);
+	}
+
+	if ( get_field( 'name_mod_7' ) ) {
+		$mod_fields['mod_7'] = array( 
+			'name'   => get_field( 'name_mod_7', $post_id ),
+			'status' => get_field( 'status_mod_7', $post_id ),
+			'price'  => get_field( 'price_mod_7', $post_id ), 
+		);
+	}
+
+	get_field( 'tab_title_1' ) !== '' ? $tab_fields[get_field( 'tab_title_1' )] = get_field( 'custom_tab_1' ) : $tab_fields['tab_1'] = '';
+	get_field( 'tab_title_2' ) !== '' ? $tab_fields[get_field( 'tab_title_2' )] = get_field( 'custom_tab_2' ) : $tab_fields['tab_2'] = '';
+	get_field( 'tab_title_3' ) !== '' ? $tab_fields[get_field( 'tab_title_3' )] = get_field( 'custom_tab_3' ) : $tab_fields['tab_3'] = '';
+	get_field( 'tab_title_4' ) !== '' ? $tab_fields[get_field( 'tab_title_4' )] = get_field( 'custom_tab_4' ) : $tab_fields['tab_4'] = '';
+
+
+	update_field( 'mod_fields', $mod_fields, $post_id );
+	update_field( 'tab_fields', $tab_fields, $post_id );
+
+}
+
+//!SECTION Product Modifications on single
+
+
+//!SECTION Single product
+
+//SECTION Catalog archives
+
+//add catalog sidebar 
+add_action( 'widgets_init', 'catalog_sidebar_reg' );
+function catalog_sidebar_reg() {
+
+}
+
+remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
+remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);
+
+//remove product counter from category title
+add_filter( 'woocommerce_subcategory_count_html', '__return_null' );
+
+//thumbnail for categories and product in archive
+add_action( 'after_setup_theme', function() {
+	add_image_size( 'category_thumb', 450, 623, true );
+	add_image_size( 'product_thumb', 450, 312, true );
+});
+add_filter( 'subcategory_archive_thumbnail_size', function() { return 'category_thumb'; } );
+add_filter( 'single_product_archive_thumbnail_size', function() { return 'product_thumb'; } );
+
+//change button text for products in archve loop
+add_filter('woocommerce_product_add_to_cart_text', 'netping_add_to_cart_text', 10, 2 );
+function netping_add_to_cart_text($button_text, $product) {
+	return 'Подробнее&nbsp;&nbsp;❯';
+}
+
+//length of excerpt in words
+add_filter( 'excerpt_length', 'change_excerpt_length', 10, 1);
+function change_excerpt_length( $length ) {
+	return 30;
+}
+
+//add short description for product on archive page
+add_action('woocommerce_after_shop_loop_item_title', 'add_short_desc_to_archive_product', 3);
+function add_short_desc_to_archive_product() {
+	global $product;
+
+	// echo '<div class="archive-product-desc">' . wp_trim_excerpt( wp_trim_words($product->get_short_description(), 30 ) ) . '</div>';
+
+	// echo $product->get_short_description();
+
+	$first_desc = explode(PHP_EOL, $product->get_short_description() );
+	echo '<div class="archive-product-desc">' . $first_desc[0]  . '</div>';
+
+}
+
+//!SECTION Catalog archives
