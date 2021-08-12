@@ -607,3 +607,5 @@ function add_short_desc_to_archive_product() {
 }
 
 //!SECTION Catalog archives
+
+remove_filter( 'the_excerpt', 'wpautop' );
