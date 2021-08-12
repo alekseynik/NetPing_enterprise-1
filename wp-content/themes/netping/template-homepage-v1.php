@@ -5,6 +5,8 @@
  * @package NetPing
  */
 
+use function PHPSTORM_META\type;
+
 get_header(); ?>
 
 <div id="main-section" class="main-section">
@@ -20,9 +22,12 @@ get_header(); ?>
             </div>
         </div>
         <div class="button-wrapper">
-            <a href="#open_callback_modal">
+            <!-- <a href="#open_callback_modal">
                 <button>Подбор решения</button>
-            </a>
+            </a> -->
+
+            <a href="#open_callback_modal" class="button">Подбор решения</a>
+
         </div>
     </div>
     <div class="circle"></div>
@@ -118,15 +123,64 @@ get_header(); ?>
         <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/demo_image.png" alt="">
     </div>
     <div class="button-wrapper">
-        <a href="#open_callback_modal">
-            <button>Подбор решения</button>
-        </a>
+        <a href="#open_callback_modal" class="button">Подбор решения</a>
     </div>
 </div>
 
 <div class="devices-section">
     <div class="col-full">
         <h2 class="h-line">Наши устройства</h2>
+        <div class="devices-blocks__container row">
+        <?php
+        $args = array(
+        'post_type' => 'product',
+        'meta_query' => array(
+            array('key' => 'for_home',
+                'value' => true, 
+                'compare' => '=',
+            )
+        ),  
+        'posts_per_page' => 4 
+        );
+        $wc_query = new WP_Query($args);
+
+        if( $wc_query->have_posts() ) {
+
+            while( $wc_query->have_posts() ) {
+
+                $wc_query->the_post();
+                // echo '<pre>';
+                // print_r($wc_query);
+                ?>
+                <div class="devices-block">
+                    <div class="row">
+                        <div class="image-container">
+                            <?php the_post_thumbnail('product_thumb'); ?>
+                        </div>
+                        <div class="text-container column">
+                            <h3><?php the_title() ?></h3>
+                            <p><?php
+                            $first_desc = explode(PHP_EOL, wp_strip_all_tags(get_the_excerpt())); 
+                            echo  $first_desc[0];
+                            ?></p>
+                            <div><a class="more-link" href="<?php the_permalink() ?>">Подробнее</a> <span class="arrow">⟶</span></div>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                // wc_get_template_part( 'content', 'product' );
+
+            }
+            ?>
+            </ul>
+            <?php
+        } else {
+            echo "";
+        }
+
+        wp_reset_postdata();
+        ?>
+        </div>
         <div class="devices-blocks__container row">
             <div class="devices-block">
                 <div class="row">
@@ -274,7 +328,7 @@ get_header(); ?>
                 подъезд 1, этаж 4</div>
             </div>
             <div class="contact-block button-wrapper">
-                <a href="#open_callback_modal"><button>Свяжитесь с нами</button></a>
+                <a href="#open_callback_modal" class="button">Свяжитесь с нами</a>
             </div>
             <div class="contact-block">
             <div class="big-text"><a href="tel:84956468537">8 (495) 646-85-37</a></div>
