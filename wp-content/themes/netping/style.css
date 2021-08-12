@@ -785,6 +785,13 @@ input[type="submit"] {
 	cursor: pointer;
 }
 
+a.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
 
 .white_button {
 	background-image: linear-gradient( -101deg, #fff 0%, #cecece 100%);
@@ -1536,7 +1543,7 @@ footer.site-footer h2 {
 .who_needs-block.showContent .who_needs-block__trigger {
 	opacity: 0;
 	transition: .3s;
-	transition-delay: 0;
+	transition-delay: 0s;
 } 
 
 .who_needs-block__trigger {
@@ -1887,7 +1894,6 @@ footer.site-footer h2 {
 .scroll_tabs_container div.scroll_tab_inner li {
 	display: -moz-inline-stack;
 	display: inline-block;
-	*display: inline;
 	list-style-type: none;
 }
 
@@ -2726,11 +2732,6 @@ ul.products li.product.product-category h2.woocommerce-loop-category__title {
 
 	.catalog-sidebar {
 		width: 100%;
-	}
-
-	.catalog-sidebar.fixed {
-		postion: fixed;
-
 	}
 
 	.catalog-sidebar ul.product-categories {
