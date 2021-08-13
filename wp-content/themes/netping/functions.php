@@ -216,9 +216,9 @@ function netping_widgets_init() {
 /**
  * Enqueue scripts and styles.
  */
-add_action( 'wp_enqueue_scripts', 'netping_scripts' );
+add_action( 'wp_enqueue_scripts', 'netping_scripts', 5 );
 function netping_scripts() {
-	wp_enqueue_style( 'netping-style', get_stylesheet_uri(), array('netping-woocommerce-style'), _S_VERSION );
+	wp_enqueue_style( 'netping-style', get_stylesheet_uri(), array(), _S_VERSION );
 	wp_style_add_data( 'netping-style', 'rtl', 'replace' );
 
 	wp_enqueue_script( 'netping-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );

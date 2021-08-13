@@ -59,7 +59,7 @@ function netping_woocommerce_scripts() {
 
 	wp_add_inline_style( 'netping-woocommerce-style', $inline_font );
 }
-add_action( 'wp_enqueue_scripts', 'netping_woocommerce_scripts' );
+add_action( 'wp_enqueue_scripts', 'netping_woocommerce_scripts', 4 );
 
 /**
  * Disable the default WooCommerce stylesheet.
