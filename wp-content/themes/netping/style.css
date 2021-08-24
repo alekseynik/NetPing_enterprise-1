@@ -8,9 +8,6 @@ Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-com
 
 */
 
-
-
-
 /* roboto-300 - latin_cyrillic */
 @font-face {
 	font-family: 'Roboto';
@@ -58,10 +55,6 @@ Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-com
     from { opacity: 1.0; }
     50% { opacity: 0.1; }
     to { opacity: 1.0; }
-}
-
-:focus {
-	/* outline: 1px dotted #dbdbdb61; */
 }
 
 /*--------------------------------------------------------------
@@ -1665,6 +1658,11 @@ footer.site-footer h2 {
 	flex-shrink: 0;
 }
 
+.devices-section a.devices-loop-link {
+	display: flex;
+	text-decoration: none;
+}
+
 .devices-blocks__container.row {
 	flex-wrap: wrap;
 	justify-content: space-between;
@@ -2429,6 +2427,7 @@ ul.products li.product.product-category h2.woocommerce-loop-category__title {
         color: #fff;
         font-size: 48px;
 		text-decoration: none;
+		z-index: 999;
     }
 }
 

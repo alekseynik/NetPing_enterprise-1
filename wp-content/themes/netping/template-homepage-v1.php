@@ -153,19 +153,21 @@ get_header(); ?>
                 // print_r($wc_query);
                 ?>
                 <div class="devices-block">
-                    <div class="row">
+                    <a class="devices-loop-link row" href="<?php the_permalink() ?>">
                         <div class="image-container">
                             <?php the_post_thumbnail('product_thumb'); ?>
                         </div>
                         <div class="text-container column">
                             <h3><?php the_title() ?></h3>
-                            <p><?php
-                            $first_desc = explode(PHP_EOL, wp_strip_all_tags(get_the_excerpt())); 
-                            echo  $first_desc[0];
-                            ?></p>
-                            <div><a class="more-link" href="<?php the_permalink() ?>">Подробнее</a> <span class="arrow">⟶</span></div>
+                            <p>
+                                <?php
+                                $first_desc = explode(PHP_EOL, wp_strip_all_tags(get_the_excerpt())); 
+                                echo $first_desc[0];
+                                ?>
+                            </p>
+                            <div class="more-link">Подробнее <span class="arrow">⟶</span></div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <?php
                 // wc_get_template_part( 'content', 'product' );
@@ -181,56 +183,7 @@ get_header(); ?>
         wp_reset_postdata();
         ?>
         </div>
-        <div class="devices-blocks__container row">
-            <div class="devices-block">
-                <div class="row">
-                    <div class="image-container">
-                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/netping_8.png" alt="">
-                    </div>
-                    <div class="text-container column">
-                        <h3>NetPing 8/pwr-220 v4/sms</h3>
-                        <p>Устройство удаленного управления 8 розетками электропитания с поддержкой управления по SMS </p>
-                        <div><a class="more-link" href="#">Подробнее</a> <span class="arrow">⟶</span></div>
-                    </div>
-                </div>
-            </div>
-            <div class="devices-block">
-                <div class="row">
-                    <div class="image-container">
-                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/uniping_server.png" alt="">
-                    </div>
-                    <div class="text-container column">
-                        <h3>Uniping server solution v4/sms</h3>
-                        <p>Устройство удаленного мониторинга датчиков с уведомлениями по SMS </p>
-                        <div><a class="more-link" href="#">Подробнее</a> <span class="arrow">⟶</span></div>
-                    </div>
-                </div>
-            </div>
-            <div class="devices-block">
-                <div class="row">
-                    <div class="image-container">
-                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/netping_4.png" alt="">
-                    </div>
-                    <div class="text-container column">
-                    <h3>NetPing 4/pwr-220 v3/sms</h3>
-                    <p>Устройство удаленного управления 4 розетками электропитания с поддержкой управления по SMS и встроенным аккумулятором </p>
-                    <div><a class="more-link" href="#">Подробнее</a> <span class="arrow">⟶</span></div>
-                    </div>
-                </div>
-            </div>
-            <div class="devices-block">
-                <div class="row">
-                    <div class="image-container">
-                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/netping_2.png" alt="">
-                    </div>
-                    <div class="text-container column">
-                    <h3>NetPing 2/pwr-220 v13/gsm3g</h3>
-                    <p>Управляемый блок удаленного распределения питания по сети с поддержкой управления по SMS </p>
-                    <div><a class="more-link" href="#">Подробнее</a> <span class="arrow">⟶</span></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
     </div>
     <div class="circle"></div>
 </div>
