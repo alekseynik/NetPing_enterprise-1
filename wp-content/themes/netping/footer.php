@@ -20,8 +20,8 @@
 				<div class="site-info-block">
 					<?php the_custom_logo( ) ?>
 				</div>
-				<div class="site-info-block">ООО “Алентис Электроникс” © 2005-2020</div>
-				<div class="site-info-block"><a href="#">Политика в отношении защиты и обработки персональных данных</a></div>
+				<div class="site-info-block">ООО “Алентис Электроникс” © 2005 — <?php echo date('Y'); ?></div>
+				<div class="site-info-block"></div>
 			</div><!-- .site-info -->
 		</div>
 	</footer><!-- #colophon -->

@@ -54,7 +54,7 @@
 		<div class="header-bar">
 			<div class="col-full">
 				<div class="header-bar-container">
-					<div class="header-bar-block">Отдел продаж: <a href="mailto:sale@netping.ru">sale@netping.ru</a></div>
+					<div class="header-bar-block">Отдел продаж: <a href="mailto:sales@netping.ru">sales@netping.ru</a></div>
 					<div class="header-bar-block">Техподдержка: <a href="mailto:support@netping.ru">support@netping.ru</a></div>
 					<div class="header-bar-block">Телефон: <a href="tel:+74956468537">+7 / 495 / 646-85-37</a></div>
 					<div class="header-bar-block"></div>
