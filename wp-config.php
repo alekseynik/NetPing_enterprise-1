@@ -24,6 +24,7 @@ $db_name = getenv("DBTEST_NAME");
 $db_user = getenv("DBTEST_USER");
 $db_host = getenv("DBTEST_HOST");
 $db_password = getenv("DBTEST_PASSWORD");
+//$is_test_site = getenv("IS_TEST_SITE");
 
 define( 'DB_NAME', $db_name );
 
@@ -41,6 +42,9 @@ define( 'DB_CHARSET', 'utf8' );
 
 /** The Database Collate type. Don't change this if in doubt. */
 define( 'DB_COLLATE', '' );
+
+/** Constant determines is site is test site or not */
+//define( 'IS_TEST_SITE', $is_test_site );
 
 /**
  * Authentication Unique Keys and Salts.
