@@ -1317,6 +1317,10 @@ nav#site-navigation ul.menu li:not(:last-child) {
 
 /**FOOTER**/
 
+#text-2, #text-3 {
+    min-height: 300px;
+}
+
 h2.widget-title {
 	margin-top: 1.5em;
     margin-bottom: 0.8em;
