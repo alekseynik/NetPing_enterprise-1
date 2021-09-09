@@ -597,10 +597,6 @@ add_action('woocommerce_after_shop_loop_item_title', 'add_short_desc_to_archive_
 function add_short_desc_to_archive_product() {
 	global $product;
 
-	// echo '<div class="archive-product-desc">' . wp_trim_excerpt( wp_trim_words($product->get_short_description(), 30 ) ) . '</div>';
-
-	// echo $product->get_short_description();
-
 	$first_desc = explode(PHP_EOL, $product->get_short_description() );
 	echo '<div class="archive-product-desc">' . $first_desc[0]  . '</div>';
 
@@ -609,3 +605,24 @@ function add_short_desc_to_archive_product() {
 //!SECTION Catalog archives
 
 remove_filter( 'the_excerpt', 'wpautop' );
+
+//shortcode to include external files. Params: file - full path to external file, wrapper - tag to wrap with (default is pre), class - class for wrapper.
+add_shortcode( 'show_file', 'show_file_func' );
+function show_file_func( $atts ) {
+	extract( shortcode_atts( array(
+	    	'file'    => '',
+			'wrapper' => 'pre',
+			'class'   => '',
+		), 
+	$atts ));
+
+	if ($file != '') {
+		echo '<' . $wrapper . ' class="' . $class . '">';
+		echo @file_get_contents($file);
+		echo '</' . $wrapper. '>';
+	}
+}
+
+// if ( IS_TEST_SITE ) {
+// 	add_filter( 'wp_robots', 'wp_robots_no_robots' );
+// }
