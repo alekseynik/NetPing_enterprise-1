@@ -118,24 +118,27 @@ if ( is_shop() ) {
 				'compare' => '=',
 			)
 		),  
-		'posts_per_page' => 4 
+		'posts_per_page' => 4,
 
 	);
-	$wc_query = new WP_Query($args);
 
-	if( $wc_query->have_posts() ) {
+	$new_wc_query = new WP_Query($args);
+	
+	wc_set_loop_prop( 'columns', 4 );
+		
+	if( $new_wc_query->have_posts() ) {
 		?>
 		<h2 class="h-line">Новинки</h2>
 		<ul class="products columns-4">
-		<?php
-		while( $wc_query->have_posts() ) {
+			<?php
+			while( $new_wc_query->have_posts() ) {
 
-			$wc_query->the_post();
+				$new_wc_query->the_post();
 
-			wc_get_template_part( 'content', 'product' );
+				wc_get_template_part( 'content', 'product' );
 
-		}
-		?>
+			}
+			?>
 		</ul>
 		<?php
 	} else {
@@ -154,10 +157,5 @@ if ( is_shop() ) {
  * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
  */
 do_action( 'woocommerce_after_main_content' );
-
-
-
-
-
 
 get_footer( 'shop' );
