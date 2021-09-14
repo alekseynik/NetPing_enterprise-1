@@ -288,7 +288,7 @@ get_header(); ?>
                 <span>Консультация по продуктам</span>
             </div>
             <div class="contact-block">
-                <span><a href="#">Реквизиты →</a></span>
+                <span><a href="/o-kompanii/kontakty/">Реквизиты →</a></span>
             </div>
         </div>
     </div>
