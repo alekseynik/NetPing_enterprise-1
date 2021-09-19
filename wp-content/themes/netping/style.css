@@ -2174,6 +2174,10 @@ ul.product-categories li.cat-item-24 a:before {
     content: url(images/icons/nabory_system_3.png);
 }
 
+ul.product-categories li.cat-item-25 a:before {
+    content: url(images/icons/archives.png);
+}
+
 ul.products li.product {
 	background-color: white;
 	border-radius: 15px;
