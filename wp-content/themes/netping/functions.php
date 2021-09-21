@@ -486,67 +486,26 @@ add_filter( 'woocommerce_get_image_size_single', function( $size ) {
 add_action('acf/save_post', 'save_mod_fields', 20);
 function save_mod_fields( $post_id ) {
 
-	if ( get_field( 'name_mod_1' ) ) {
-		$mod_fields['mod_1'] = array( 
-			'name'   => get_field( 'name_mod_1', $post_id ),
-			'status' => get_field( 'status_mod_1', $post_id ),
-			'price'  => get_field( 'price_mod_1', $post_id ), 
-		);
-	}
-
-	if ( get_field( 'name_mod_2' ) ) {
-		$mod_fields['mod_2'] = array( 
-			'name'   => get_field( 'name_mod_2', $post_id ),
-			'status' => get_field( 'status_mod_2', $post_id ),
-			'price'  => get_field( 'price_mod_2', $post_id ), 
-		);
-	}
 	
-	if ( get_field( 'name_mod_3' ) ) {
-		$mod_fields['mod_3'] = array( 
-			'name'   => get_field( 'name_mod_3', $post_id ),
-			'status' => get_field( 'status_mod_3', $post_id ),
-			'price'  => get_field( 'price_mod_3', $post_id ), 
-		);
+	for ( $mod_i = 1; $mod_i <= 7; $mod_i++ ) {
+		if ( get_field( "name_mod_{$mod_i}" ) == '' ) {
+			break;
+		} else {
+			$mod_fields["mod_{$mod_i}"] = array( 
+				'name'   => get_field( "name_mod_{$mod_i}", $post_id ),
+				'status' => get_field( "status_mod_{$mod_i}", $post_id ),
+				'price'  => get_field( "price_mod_{$mod_i}", $post_id ),
+			); 
+		}
 	}
 
-	if ( get_field( 'name_mod_4' ) ) {
-		$mod_fields['mod_4'] = array( 
-			'name'   => get_field( 'name_mod_4', $post_id ),
-			'status' => get_field( 'status_mod_4', $post_id ),
-			'price'  => get_field( 'price_mod_4', $post_id ), 
-		);
+	for ( $tab_i = 1; $tab_i <= 4; $tab_i++ ) {
+		if (get_field( "tab_title_{$tab_i}" ) !== '') { 
+			$tab_fields[get_field( "tab_title_{$tab_i}" )] = get_field( "custom_tab_{$tab_i}" );
+		} else { 
+			$tab_fields["tab_{$tab_i}"] = '' ;
+		};
 	}
-
-	if ( get_field( 'name_mod_5' ) ) {
-		$mod_fields['mod_5'] = array( 
-			'name'   => get_field( 'name_mod_5', $post_id ),
-			'status' => get_field( 'status_mod_5', $post_id ),
-			'price'  => get_field( 'price_mod_5', $post_id ), 
-		);
-	}
-
-	if ( get_field( 'name_mod_6' ) ) {
-		$mod_fields['mod_6'] = array( 
-			'name'   => get_field( 'name_mod_6', $post_id ),
-			'status' => get_field( 'status_mod_6', $post_id ),
-			'price'  => get_field( 'price_mod_6', $post_id ), 
-		);
-	}
-
-	if ( get_field( 'name_mod_7' ) ) {
-		$mod_fields['mod_7'] = array( 
-			'name'   => get_field( 'name_mod_7', $post_id ),
-			'status' => get_field( 'status_mod_7', $post_id ),
-			'price'  => get_field( 'price_mod_7', $post_id ), 
-		);
-	}
-
-	get_field( 'tab_title_1' ) !== '' ? $tab_fields[get_field( 'tab_title_1' )] = get_field( 'custom_tab_1' ) : $tab_fields['tab_1'] = '';
-	get_field( 'tab_title_2' ) !== '' ? $tab_fields[get_field( 'tab_title_2' )] = get_field( 'custom_tab_2' ) : $tab_fields['tab_2'] = '';
-	get_field( 'tab_title_3' ) !== '' ? $tab_fields[get_field( 'tab_title_3' )] = get_field( 'custom_tab_3' ) : $tab_fields['tab_3'] = '';
-	get_field( 'tab_title_4' ) !== '' ? $tab_fields[get_field( 'tab_title_4' )] = get_field( 'custom_tab_4' ) : $tab_fields['tab_4'] = '';
-
 
 	update_field( 'mod_fields', $mod_fields, $post_id );
 	update_field( 'tab_fields', $tab_fields, $post_id );
@@ -618,7 +577,7 @@ function show_file_func( $atts ) {
 
 	if ($file != '') {
 		echo '<' . $wrapper . ' class="' . $class . '">';
-		echo @file_get_contents($file);
+		echo @file_get_contents(get_stylesheet_directory() . '/' .$file);
 		echo '</' . $wrapper. '>';
 	}
 }
