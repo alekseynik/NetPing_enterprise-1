@@ -489,7 +489,7 @@ function save_mod_fields( $post_id ) {
 	
 	for ( $mod_i = 1; $mod_i <= 7; $mod_i++ ) {
 		if ( get_field( "name_mod_{$mod_i}" ) == '' ) {
-			break;
+			continue;
 		} else {
 			$mod_fields["mod_{$mod_i}"] = array( 
 				'name'   => get_field( "name_mod_{$mod_i}", $post_id ),
