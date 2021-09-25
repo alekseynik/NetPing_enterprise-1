@@ -557,7 +557,7 @@ function add_short_desc_to_archive_product() {
 	global $product;
 
 	$first_desc = explode(PHP_EOL, $product->get_short_description() );
-	echo '<div class="archive-product-desc">' . $first_desc[0]  . '</div>';
+	echo '<div class="archive-product-desc">' . wp_strip_all_tags( $first_desc[0] ) . '</div>';
 
 }
 

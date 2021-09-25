@@ -1931,6 +1931,10 @@ footer.site-footer h2 {
 
 /** Catalog styles **/
 
+ul.products {
+	overflow: auto;
+}
+
 ul.products li.product:before {
 	display: none;
 }
