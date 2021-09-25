@@ -585,3 +585,11 @@ function show_file_func( $atts ) {
 // if ( IS_TEST_SITE ) {
 // 	add_filter( 'wp_robots', 'wp_robots_no_robots' );
 // }
+
+add_filter('body_class', 'add_sidebar_class' );
+function add_sidebar_class( $classes ) {
+	if (is_active_sidebar('sidebar-1') && is_post_type_archive('netping_news') ) {
+		$classes[] = 'has_sidebar';
+	}
+	return $classes;
+}

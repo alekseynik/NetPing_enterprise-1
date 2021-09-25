@@ -2297,6 +2297,14 @@ ul.products li.product.product-category h2.woocommerce-loop-category__title {
 	font-weight: normal;
 }
 
+/** News pages */
+
+.post-type-archive-netping_news .site-main article {
+	background-color: #FFFFFF;
+	box-shadow: 5px 10px 20px rgba(38, 38, 38, 0.1);
+	border-radius: 20px;
+	padding: 20px;
+}
 
 
 /** ADAPTATION */
