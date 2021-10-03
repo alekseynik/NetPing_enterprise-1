@@ -1,7 +1,7 @@
 <?php
-//SECTION Meta metabox with all meta fields for admin (based on woocmmerce-jetpack plugin script) 
+//Meta metabox with all meta fields for admin (based on woocmmerce-jetpack plugin script) 
 
-//ANCHOR create metabox
+//create metabox
 function create_meta_meta_box( $post ) {
 	$html    = '';
 	$post_id = get_the_ID();
@@ -50,7 +50,7 @@ function create_meta_meta_box( $post ) {
 	echo $html;
 }
 
-//ANCHOR generate table
+//generate table
 if ( ! function_exists( 'get_table_html' ) ) {
 	function get_table_html( $data, $args = array() ) {
 		$defaults = array(
@@ -88,17 +88,16 @@ if ( ! function_exists( 'get_table_html' ) ) {
 	}
 }
 
-//ANCHOR add metabox
+//add metabox
 add_action( 'add_meta_boxes', 'add_order_meta_meta_box' );
 function add_order_meta_meta_box() {
 	add_meta_box(
 		'products-and-orders-meta-table',
 		'Все мета поля:',
 		'create_meta_meta_box',
-		array('shop_order','product', 'user'),
+		array('shop_order','product', 'user', 'netping_news'),
 		'normal',
 		'low'
 	);
 }
 
-//!SECTION Meta metabox with all meta fields for admin (based on woocmmerce-jetpack plugin script)
