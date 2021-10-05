@@ -108,9 +108,13 @@ public function widget( $args, $instance ) {
             ?>
             <li>
                 <div class="entry-meta">
-                    <?php foreach ( get_the_terms($recent_post->ID, 'news_categories') as $cat ): ?>
-                        <a href="<?php echo get_category_link($cat->term_id) ?>"><?php echo $cat->name ?></a>
-                    <?php endforeach; ?>
+                    <?php if (( get_the_terms($recent_post->ID, 'news_categories') )): ?>
+                        <?php foreach ( get_the_terms($recent_post->ID, 'news_categories') as $cat ): ?>
+                            <a href="<?php echo get_category_link($cat->term_id) ?>"><?php echo $cat->name ?></a>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        &nbsp;
+                    <?php endif; ?>
                     <?php if ( $show_date ) : ?>
                         <span class="post-date"><?php echo get_the_date( 'j F Y', $recent_post->ID ); ?></span>
                     <?php endif; ?>

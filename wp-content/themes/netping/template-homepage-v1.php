@@ -237,9 +237,11 @@ get_header(); ?>
                 <?php $img_url = get_the_post_thumbnail_url(get_the_ID(),'thumbnail'); ?>
                     <div class="news-block">
                         <div class="row">
+                            <?php if ( $img_url ): ?>
                             <div class="news-block-image">
                                 <img src="<?php echo $img_url; ?>" alt="">
                             </div>
+                            <?php endif; ?>
                             <div class="column">
                                 <small><?php the_time('F jS, Y') ?></small>
                                 <h3> <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>

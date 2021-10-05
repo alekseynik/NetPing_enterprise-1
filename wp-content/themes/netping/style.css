@@ -1804,6 +1804,10 @@ footer.site-footer h2 {
 	flex-shrink: 0;
 }
 
+.news-block .entry {
+	margin-top: 10px;
+}
+
 .contacts-section {
 	padding: 100px;
 }
@@ -2521,7 +2525,7 @@ aside .entry-wrapper .widget-news-title {
 }
 
 .archive .post-wrapper .entry-content {
-	margin-top: 15px;
+	margin: 15px 0;
 	line-height: 120%;
 	position: relative;
 	height: 120px;
@@ -2605,6 +2609,48 @@ aside .entry-wrapper .widget-news-title {
 .single-netping_news .site-main .post-thumbnail img {
 	object-fit: contain;
 }
+
+.post-navi.row {
+	align-items: center;
+	margin: 40px 0;
+}
+
+.post-navi.row a.back-link {
+	text-decoration: none;
+	color: #333;
+	margin-right: 40px;
+}
+
+.post-navi.row a.back-link:first-letter {
+	font-size: 26px;
+	vertical-align: middle;
+	margin-right: 15px;
+}
+
+.ya-share2 ul li:before,
+.ya-share2__container ul li:before {
+	display: none;
+}
+
+.ya-share2 .ya-share2__title {
+	color: #333;
+}
+
+.ya-share2 .ya-share2__item_more.ya-share2__item_has-pretty-view .ya-share2__link_more {
+	background-color: transparent;
+	border: none;
+	padding: 0px !important;
+	font-size: 16px !important;
+}
+
+.ya-share2__list.ya-share2__list_direction_horizontal > .ya-share2__item {
+	margin: 0 !important;
+}
+
+.ya-share2 .ya-share2__item_more.ya-share2__item_has-pretty-view .ya-share2__link_more .ya-share2__badge {
+	margin-right: 10px;
+}
+
 
 
 /** ADAPTATION */
