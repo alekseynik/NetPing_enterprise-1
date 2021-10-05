@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.3.0' );
+	define( '_S_VERSION', '1.4.0' );
 }
 
 if ( ! function_exists( 'netping_setup' ) ) :
@@ -116,9 +116,40 @@ function netping_content_width() {
 }
 add_action( 'after_setup_theme', 'netping_content_width', 0 );
 
-/** Rregister News post type 
+/** 
+ * Rregister News post type 
  * 
 */
+add_action( 'init', 'register_news_taxonomies');
+function register_news_taxonomies() {
+    register_taxonomy(
+        'news_categories',  // The name of the taxonomy. Name should be in slug form (must not contain capital letters or spaces).
+        'netping_news',             // post type name
+        array(
+            'hierarchical' => true,
+            'label'       => 'Рубрики новостей', // display name
+			'has_archive' => true,
+            'rewrite'     => array(
+                'slug'       => 'news_cat',    // This controls the base slug that will display before each term
+                // 'with_front' => false  // Don't display the category base before
+            )
+        )
+    );
+
+	register_taxonomy(
+        'news_tags',  // The name of the taxonomy. Name should be in slug form (must not contain capital letters or spaces).
+        'netping_news',             // post type name
+        array(
+            'hierarchical' => false,
+            'label'       => 'Метки новостей', // display name
+			'has_archive' => true,
+            'rewrite'     => array(
+                'slug'       => 'news_tag',    // This controls the base slug that will display before each term
+                // 'with_front' => false  // Don't display the category base before
+            )
+        )
+    );
+}
 
 add_action('init', 'netping_news_post_type');
 function netping_news_post_type() {
@@ -129,18 +160,12 @@ function netping_news_post_type() {
                 'singular_name' => 'Новость',
             ),
 			'public'      => true,
-			'has_archive' => true,
+			'has_archive' => 'news',
 			'rewrite'     => array('slug' => 'news'),
 			'supports'    => [ 'title', 'editor', 'thumbnail', 'excerpt' ],
-			'taxonomy'    => ['post_tag'],
+			'taxonomy'    => [ 'news_tags', 'news_categories' ],
         )
     );
-}
-
-/** Add post tag taxonomy for news post type */
-add_action( 'init', 'post_tag_for_news' );
-function post_tag_for_news() {
-	register_taxonomy_for_object_type( 'post_tag', 'netping_news');
 }
 
 /**
@@ -275,9 +300,30 @@ if ( class_exists( 'WooCommerce' ) ) {
 }
 
 /**
- * Load Admin meta output function
+ * Load Breadcrumbs class
+ */
+if ( !function_exists( 'breadcrumb_trail' ) ) {
+	require_once( 'inc/breadcrumbs.php' );
+}
+
+/**
+ * Load post meta table function for Admin area
  */
 require get_template_directory() . '/inc/admin-customizations.php';
+
+/**
+ * Load custom widgets classes
+ */
+require( 'inc/class-wp-widget-netping-tags.php' );
+require( 'inc/class-wp-widget-recent-news.php' );
+
+
+//register custom widgets
+add_action( 'widgets_init', 'register_netping_widgets' );
+function register_netping_widgets() {
+	register_widget( 'WP_Widget_Recent_News' );
+	register_widget( 'WP_Widget_Netping_Tags' );
+}
 
 //add script for redirection to thankyou modal after cf7 successfull submit
 add_action( 'wp_footer', 'after_submit_redirect' );
@@ -291,7 +337,7 @@ function after_submit_redirect() {
 	<?php
 }
 
-//add Каталог to breadcrumbs
+//add Каталог to woocommerce breadcrumbs
 add_filter( 'woocommerce_get_breadcrumb', function($crumbs, $Breadcrumb) {
 	if(is_woocommerce() && !is_shop() ) { //Check we got an ID (shop page is set). Added check for is_shop to prevent Home / Shop / Shop as suggested in comments
 		$new_breadcrumb = [
@@ -304,7 +350,7 @@ add_filter( 'woocommerce_get_breadcrumb', function($crumbs, $Breadcrumb) {
 }, 10, 2 );
 
 
-// wrap the breadcrumb separator
+// wrap woocommerce breadcrumb separator
 add_filter( 'woocommerce_breadcrumb_defaults', 'netping_change_breadcrumb_delimiter' );
 function netping_change_breadcrumb_delimiter( $defaults ) {
 	$defaults['delimiter'] = '<sep> &#47; </sep>';
@@ -521,8 +567,7 @@ function save_mod_fields( $post_id ) {
 
 //add catalog sidebar 
 add_action( 'widgets_init', 'catalog_sidebar_reg' );
-function catalog_sidebar_reg() {
-
+	function catalog_sidebar_reg() {
 }
 
 remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
@@ -545,25 +590,33 @@ function netping_add_to_cart_text($button_text, $product) {
 	return 'Подробнее&nbsp;&nbsp;❯';
 }
 
-//length of excerpt in words
-add_filter( 'excerpt_length', 'change_excerpt_length', 10, 1);
-function change_excerpt_length( $length ) {
-	return 30;
-}
-
 //add short description for product on archive page
 add_action('woocommerce_after_shop_loop_item_title', 'add_short_desc_to_archive_product', 3);
 function add_short_desc_to_archive_product() {
 	global $product;
 
-	$first_desc = explode(PHP_EOL, $product->get_short_description() );
-	echo '<div class="archive-product-desc">' . $first_desc[0]  . '</div>';
+	$first_desc = explode(PHP_EOL, wp_strip_all_tags($product->get_short_description()) );
+	echo '<div class="archive-product-desc">' . $first_desc[0] . '</div>';
 
 }
 
 //!SECTION Catalog archives
 
+//excerpt customiztions
 remove_filter( 'the_excerpt', 'wpautop' );
+add_filter('excerpt_more', function($more) {
+	return '...';
+});
+
+//length of excerpt in words
+add_filter( 'excerpt_length', 'change_excerpt_length', 10, 1);
+function change_excerpt_length( $length ) {
+	if ( get_post_type() == 'netping_news' ){
+		return 100;
+	} else {
+		return 30;
+	}
+}
 
 //shortcode to include external files. Params: file - full path to external file, wrapper - tag to wrap with (default is pre), class - class for wrapper.
 add_shortcode( 'show_file', 'show_file_func' );
@@ -582,14 +635,236 @@ function show_file_func( $atts ) {
 	}
 }
 
-// if ( IS_TEST_SITE ) {
-// 	add_filter( 'wp_robots', 'wp_robots_no_robots' );
-// }
-
+//add class if sidebar is present on news archives
 add_filter('body_class', 'add_sidebar_class' );
 function add_sidebar_class( $classes ) {
+	// if ( is_post_type_archive('netping_news') ) {
+	// 	unset($classes['custom-background']);
+	// }
+
 	if (is_active_sidebar('sidebar-1') && is_post_type_archive('netping_news') ) {
 		$classes[] = 'has_sidebar';
 	}
 	return $classes;
 }
+
+//count visits for News posts
+add_action( 'wp_head', 'count_news_post_visits' );
+function count_news_post_visits() {
+	if ( is_singular('netping_news') ) {
+	   global $post;
+	   $views = get_post_meta( $post->ID, 'news_post_views', true );
+	   if ( $views == '' ) {
+		  update_post_meta( $post->ID, 'news_post_views', '1' ); 
+	   } else {
+		  $views_no = intval( $views );
+		  update_post_meta( $post->ID, 'news_post_views', ++$views_no );
+	   }
+	}
+ }
+
+ /**
+ * Displays list of popular tags. Based on wp_tag_cloud(). Used in class-wp-widget-netping-tags.php
+ *
+ * Outputs a list of tags in what is called a 'tag cloud', where the size of each tag
+ * is determined by how many times that particular tag has been assigned to posts.
+ *
+ * @since 2.3.0
+ * @since 2.8.0 Added the `taxonomy` argument.
+ * @since 4.8.0 Added the `show_count` argument.
+ *
+ * @param array|string $args {
+ *     Optional. Array or string of arguments for displaying a tag cloud. See wp_generate_tag_cloud()
+ *     and get_terms() for the full lists of arguments that can be passed in `$args`.
+ *
+ *     @type int    $number    The number of tags to display. Accepts any positive integer
+ *                             or zero to return all. Default 45.
+ *     @type string $link      Whether to display term editing links or term permalinks.
+ *                             Accepts 'edit' and 'view'. Default 'view'.
+ *     @type string $post_type The post type. Used to highlight the proper post type menu
+ *                             on the linked edit page. Defaults to the first post type
+ *                             associated with the taxonomy.
+ *     @type bool   $echo      Whether or not to echo the return value. Default true.
+ * }
+ * @return void|string|string[] Void if 'echo' argument is true, or on failure. Otherwise, tag cloud
+ *                              as a string or an array, depending on 'format' argument.
+ */
+function wp_pop_tag( $args = '' ) {
+	$defaults = array(
+		'smallest'   => 14,
+		'largest'    => 14,
+		'unit'       => 'px',
+		'number'     => 0,
+		'format'     => 'flat',
+		'separator'  => "\n",
+		'orderby'    => 'count',
+		'order'      => 'DESC',
+		'exclude'    => '',
+		'include'    => '',
+		'link'       => 'view',
+		'taxonomy'   => 'post_tag',
+		'post_type'  => '',
+		'echo'       => true,
+		'show_count' => 0,
+	);
+
+	$args = wp_parse_args( $args, $defaults );
+
+	$tags = get_terms(
+		array_merge(
+			$args,
+			array(
+				'orderby' => 'count',
+				'order'   => 'DESC',
+			)
+		)
+	); // Always query top tags.
+
+	if ( empty( $tags ) || is_wp_error( $tags ) ) {
+		return;
+	}
+
+	foreach ( $tags as $key => $tag ) {
+		if ( 'edit' === $args['link'] ) {
+			$link = get_edit_term_link( $tag->term_id, $tag->taxonomy, $args['post_type'] );
+		} elseif ( 'link_params' === $args['link'] ) {
+			$paged = ( get_query_var( 'paged' ) ) ? true : false;
+			$link = ( $paged ) ? esc_url( home_url( '/news/' ) ) . '?news_tags='  . $tag->slug : '?news_tags=' . $tag->slug;
+		} else {
+			$link = get_term_link( (int) $tag->term_id, $tag->taxonomy );
+		}
+
+		if ( is_wp_error( $link ) ) {
+			return;
+		}
+
+		$tags[ $key ]->link = $link;
+		$tags[ $key ]->id   = $tag->term_id;
+	}
+
+	// Here's where those top tags get sorted according to $args.
+	$return = wp_generate_tag_cloud( $tags, $args );
+
+	/**
+	 * Filters the tag cloud output.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string|string[] $return Tag cloud as a string or an array, depending on 'format' argument.
+	 * @param array           $args   An array of tag cloud arguments. See wp_tag_cloud()
+	 *                                for information on accepted arguments.
+	 */
+	$return = apply_filters( 'wp_tag_cloud', $return, $args );
+
+	if ( 'array' === $args['format'] || empty( $args['echo'] ) ) {
+		return $return;
+	}
+
+	echo $return;
+}
+
+//add readmore class to 'add to cart' button in archives
+add_filter('woocommerce_loop_add_to_cart_args', 'add_readmore_class', 15, 1 );
+function add_readmore_class($args) {
+	$args['class'] = $args['class'] . ' readmore-button';
+	return $args;
+}
+
+//wrap tags by tag-wrapper
+add_filter('term_links-news_tags', 'wrap_tag_links' );
+function wrap_tag_links($links) {
+	foreach ( $links as $link ) {
+		$link = '<span class="tag-wrapper">' . $link . '</span>';
+		$wrapped_links[] = $link;
+	}
+
+	return $wrapped_links;
+}
+
+//add tag-wrapper class for tags in cloud
+add_filter( 'wp_generate_tag_cloud_data', 'add_class_for_tags_in_clouds' );
+function add_class_for_tags_in_clouds($tags_data) {
+	foreach ($tags_data as $tag_data ) {
+		$tag_data['class'] = 'tag-wrapper ' . $tag_data['class'];
+		$wrapped_tags_data[] = $tag_data;
+	}
+	return $wrapped_tags_data;
+}
+
+//get only tags used by posts of specific category
+function get_tags_in_use($category_ID, $type = 'name') {
+    // Set up the query for our posts
+    $my_posts = new WP_Query(array(
+		'post_type' => 'netping_news',
+		'tax_query' => array(
+			array(
+				'taxonomy' => 'news_categories',
+				'terms'    => $category_ID,
+			)),
+    	'posts_per_page' => -1 // All posts from that category
+    ));
+
+    // Initialize our tag arrays
+    $tags_by_id = array();
+    $tags_by_name = array();
+    $tags_by_slug = array();
+	
+    // If there are posts in this category, loop through them
+    if ($my_posts->have_posts()): while ($my_posts->have_posts()): $my_posts->the_post();
+
+		// Get all tags of current post
+		// $post_tags = wp_get_post_tags($my_posts->post->ID);
+		$post_tags = wp_get_post_terms($my_posts->post->ID, 'news_tags' );
+		// $post_tags = 'psttags';
+		// echo wp_get_post_terms($my_posts->post->ID, 'news_tags' );
+
+		// Loop through each tag
+		foreach ($post_tags as $tag):
+
+			// Set up our tags by id, name, and/or slug
+			$tag_id = $tag->term_id;
+			$tag_name = $tag->name;
+			$tag_slug = $tag->slug;
+
+			// Push each tag into our main array if not already in it
+			if (!in_array($tag_id, $tags_by_id))
+				array_push($tags_by_id, $tag_id);
+
+			if (!in_array($tag_name, $tags_by_name))
+				array_push($tags_by_name, $tag_name);
+
+			if (!in_array($tag_slug, $tags_by_slug))
+				array_push($tags_by_slug, $tag_slug);
+
+		endforeach;
+    endwhile; 
+	endif;
+
+    // Return value specified
+    if ($type == 'id')
+        return $tags_by_id;
+
+    if ($type == 'name')
+        return $tags_by_name;
+
+    if ($type == 'slug')
+        return $tags_by_slug;
+}
+
+add_action('pre_get_posts','alter_query');
+function alter_query($query) {
+	//gets the global query var object
+	global $wp_query;
+
+	if ( !$query->is_main_query() )
+		return;
+
+	if ( ! is_admin() && is_archive() ){
+		$query-> set( 'posts_per_page', 3 );
+	}
+
+}
+
+// if ( IS_TEST_SITE ) {
+// 	add_filter( 'wp_robots', 'wp_robots_no_robots' );
+// }

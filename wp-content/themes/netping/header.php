@@ -92,3 +92,27 @@
 			</div>
 		</div>
 	</header><!-- #masthead -->
+	<?php 
+	if ( function_exists( 'breadcrumb_trail' ) && !is_woocommerce() ) {
+		
+		$args = array(
+			'before'          => '<div class="breadcrumbs-wrapper col-full">',
+			'after'           => '</div>',
+			'show_on_front'   => false,
+			'show_browse'     => false,
+			'labels' => array(
+				'home'                => esc_html( 'Главная' ),
+				'error_404'           => esc_html( '404 Страница не найдена' ),
+				'search'              => esc_html__( 'Результаты поиска: %s',                'breadcrumb-trail' ),
+				'paged'               => esc_html__( 'Страница %s',                               'breadcrumb-trail' ),
+			),
+			'post_taxonomy' => array(
+				'netping_news'  => 'news_tags',
+				'netping_news'  => 'news_categories',
+			),
+			'echo'            => true
+		);
+
+		breadcrumb_trail($args);
+	}
+	?>
