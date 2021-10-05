@@ -156,8 +156,8 @@ function netping_news_post_type() {
     register_post_type('netping_news',
         array(
             'labels'      => array(
-                'name'          => 'Новости',
-                'singular_name' => 'Новость',
+                'name'          => 'Наш блог',
+                'singular_name' => 'Пост',
             ),
 			'public'      => true,
 			'has_archive' => 'news',
@@ -611,7 +611,7 @@ add_filter('excerpt_more', function($more) {
 //length of excerpt in words
 add_filter( 'excerpt_length', 'change_excerpt_length', 10, 1);
 function change_excerpt_length( $length ) {
-	if ( get_post_type() == 'netping_news' ){
+	if ( get_post_type() == 'netping_news' && !is_front_page() ) {
 		return 100;
 	} else {
 		return 30;

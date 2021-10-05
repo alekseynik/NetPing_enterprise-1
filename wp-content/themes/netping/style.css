@@ -2489,6 +2489,10 @@ aside .entry-wrapper {
 	border-bottom: 1px solid rgba(0, 152, 30, 0.3);
 }
 
+.widget.widget_recent_news ul li:last-of-type .entry-wrapper {
+    border-bottom: none;
+}
+
 aside .entry-wrapper .widget-news-title {
 	display: block;
 }
