@@ -67,6 +67,15 @@ get_header();
 										<?php
 									}
 								}
+							} elseif ( is_tax('news_tags') ) {
+								$news_archive_link = get_post_type_archive_link( 'netping_news' );
+								?>
+								<div class="tag-wrapper">
+									<span> <?php echo get_queried_object()->name ?> </span>
+									<a href="<?php echo $news_archive_link; ?>" class="tag-remove">&times;</a>
+								</div>
+								
+								<?php
 							}
 							?>
 					</div>

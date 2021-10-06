@@ -61,7 +61,7 @@
 		?>
 		<?php if ( is_singular() ): ?>
 			<div class="post-navi row">
-				<a href="#" class="back-link"> 🠔 К списку новостей</a>
+				<a href="<?php echo get_post_type_archive_link('netping_news') ?>" class="back-link"> 🠔 К списку новостей</a>
 				<script src="https://yastatic.net/share2/share.js"></script>
 				<div class="ya-share2" data-curtain data-shape="round" data-limit="0" data-more-button-type="long" data-popup-position="outer" data-services="vkontakte,facebook,telegram,twitter" async>Поделиться</div>
 			</div>

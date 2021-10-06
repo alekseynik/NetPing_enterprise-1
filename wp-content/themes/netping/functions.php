@@ -868,3 +868,5 @@ function alter_query($query) {
 // if ( IS_TEST_SITE ) {
 // 	add_filter( 'wp_robots', 'wp_robots_no_robots' );
 // }
+
+add_filter('get_the_archive_title_prefix','__return_false');
