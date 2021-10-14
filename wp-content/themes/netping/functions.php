@@ -161,6 +161,7 @@ function netping_news_post_type() {
             ),
 			'public'      => true,
 			'has_archive' => 'news',
+			'menu_icon'   => 'dashicons-media-document',
 			'rewrite'     => array('slug' => 'news'),
 			'supports'    => [ 'title', 'editor', 'thumbnail', 'excerpt' ],
 			'taxonomy'    => [ 'news_tags', 'news_categories' ],
@@ -859,8 +860,8 @@ function alter_query($query) {
 	if ( !$query->is_main_query() )
 		return;
 
-	if ( ! is_admin() && is_archive() ){
-		$query-> set( 'posts_per_page', 3 );
+	if ( ! is_admin() && is_archive() ) {
+		$query-> set( 'posts_per_page', 20 );
 	}
 
 }
