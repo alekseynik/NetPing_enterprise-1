@@ -1800,8 +1800,10 @@ footer.site-footer h2 {
 }
 
 .news-block-image {
+	min-height: 150px;
+	display: flex;
+	align-items: center;
 	margin-right: 20px;
-	flex-shrink: 0;
 }
 
 .news-block .entry {

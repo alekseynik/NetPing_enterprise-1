@@ -223,7 +223,7 @@ get_header(); ?>
 <div class="news-section">
     <div class="circle"></div>
     <div class="col-full">
-        <h2 class="h-line">Новости</h2>
+        <h2 class="h-line">Наш блог</h2>
         <div class="news-blocks row">
             <?php
             $news_loop = new WP_Query([
