@@ -42,7 +42,7 @@ get_header();
 									location.href = "<?php echo esc_url( home_url( '/' ) ); ?>"+dropdown.options[dropdown.selectedIndex].value+get_params;
 								}
 								else if ( dropdown.options[dropdown.selectedIndex].value != 0  ) {
-									location.href = "<?php echo esc_url( home_url( '/' ) ); ?>news_cat/"+dropdown.options[dropdown.selectedIndex].value+get_params
+									location.href = "<?php echo esc_url( home_url( '/' ) ); ?>blog_cat/"+dropdown.options[dropdown.selectedIndex].value+get_params
 								}
 							}
 							dropdown.onchange = onCatChange;

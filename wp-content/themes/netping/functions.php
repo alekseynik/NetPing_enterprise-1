@@ -130,7 +130,7 @@ function register_news_taxonomies() {
             'label'       => 'Рубрики новостей', // display name
 			'has_archive' => true,
             'rewrite'     => array(
-                'slug'       => 'news_cat',    // This controls the base slug that will display before each term
+                'slug'       => 'blog_cat',    // This controls the base slug that will display before each term
                 // 'with_front' => false  // Don't display the category base before
             )
         )
@@ -144,7 +144,7 @@ function register_news_taxonomies() {
             'label'       => 'Метки новостей', // display name
 			'has_archive' => true,
             'rewrite'     => array(
-                'slug'       => 'news_tag',    // This controls the base slug that will display before each term
+                'slug'       => 'blog_tag',    // This controls the base slug that will display before each term
                 // 'with_front' => false  // Don't display the category base before
             )
         )
@@ -160,9 +160,9 @@ function netping_news_post_type() {
                 'singular_name' => 'Пост',
             ),
 			'public'      => true,
-			'has_archive' => 'news',
+			'has_archive' => 'blog',
 			'menu_icon'   => 'dashicons-media-document',
-			'rewrite'     => array('slug' => 'news'),
+			'rewrite'     => array('slug' => 'blog'),
 			'supports'    => [ 'title', 'editor', 'thumbnail', 'excerpt' ],
 			'taxonomy'    => [ 'news_tags', 'news_categories' ],
         )
@@ -481,7 +481,7 @@ function npshop_save_compatible_products_fields( $post_id ){
 
 }
 
-//ANCHOR output compatible products
+//ANCHOR output compatible products (this function is used in netping_custom_tab function)
 // add_action('woocommerce_after_single_product_summary', 'compatible_devices_list', 11 );
 function compatible_devices_list() {
 	global $product;
@@ -491,6 +491,7 @@ function compatible_devices_list() {
 			echo '<div class="compatible-devices">';
 			foreach ( $compat_prod_ids as $compat_prod_id ) {
 				$compat_product = wc_get_product($compat_prod_id);
+				if ($compat_product) :
 				?>
 				<div class="compat-product">
 					<a class="name-link" href="<?php echo $compat_product->get_permalink() ?>">
@@ -498,7 +499,10 @@ function compatible_devices_list() {
 						<?php echo $compat_product->get_name(); ?>
 					</a>
 				</div>
-			<?php
+				<?php
+				else :
+					echo '<div class="compat-product">Устройство не найдено!</div>';
+				endif;
 			}
 			echo '</div>';
 	}
