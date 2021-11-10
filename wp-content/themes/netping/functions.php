@@ -873,3 +873,15 @@ function alter_query($query) {
 // }
 
 add_filter('get_the_archive_title_prefix','__return_false');
+
+
+//add spoiler button for Popular tags widgets
+add_filter( 'wp_tag_cloud', 'add_spoiler_button_for_tags_cloud', 9999, 1 );
+function add_spoiler_button_for_tags_cloud($return) {
+	$tags_count = substr_count($return, '<li>');
+	if ($tags_count >= 5) {
+		$spoiler_html = '<div class="tags-spoiler-button"><a class="button readmore-button">Все теги <span>&nbsp;&nbsp;↓ </span></a></div><script>jQuery(".tags-spoiler-button .readmore-button").click(function() { jQuery(".wp-tag-cloud").toggleClass("show") })</script>';
+		$return .= $spoiler_html;
+	}
+	return $return;
+}
