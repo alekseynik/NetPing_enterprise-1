@@ -533,19 +533,17 @@ add_filter( 'woocommerce_get_image_size_single', function( $size ) {
 
 //SECTION Product Modifications on single
 
-// save modifications fields to array
+// save modifications fields and custom tabs 
 add_action('acf/save_post', 'save_mod_fields', 20);
 function save_mod_fields( $post_id ) {
 
-	
 	for ( $mod_i = 1; $mod_i <= 7; $mod_i++ ) {
-		if ( get_field( "name_mod_{$mod_i}" ) == '' ) {
-			continue;
-		} else {
+		if ( get_field( "name_mod_{$mod_i}" ) !== '' ) {
 			$mod_fields["mod_{$mod_i}"] = array( 
 				'name'   => get_field( "name_mod_{$mod_i}", $post_id ),
 				'status' => get_field( "status_mod_{$mod_i}", $post_id ),
 				'price'  => get_field( "price_mod_{$mod_i}", $post_id ),
+				'link'   => get_field( "link_mod_{$mod_i}", $post_id ),
 			); 
 		}
 	}

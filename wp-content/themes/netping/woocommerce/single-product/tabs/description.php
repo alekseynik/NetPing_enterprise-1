@@ -40,9 +40,27 @@ $heading = apply_filters( 'woocommerce_product_description_heading', __( 'Descri
                 </tr>
                 <?php foreach ($mod_fields[0] as $mod) : ?>
                 <tr>
-                    <td><?php echo $mod['name'] ?></td>
-                    <td><div <?php echo $mod['status'] == 'Новинка' ? 'class="status-label label_new"' : ($mod['status'] == 'End of life' ? 'class="status-label label_eol"' : '') ?> ><?php echo $mod['status'] ?></div></td>
-                    <td><?php echo $mod['price'] ?></td>
+                    <td>
+                        <?php if ( $mod['status'] == 'End of life' && isset($mod['link']) ) : ?>
+                            <a href="<?php echo $mod['link']['url'] ?>" <?php echo $mod['link']['target'] == '_blank' ? 'target="_blank"' : '' ?>><?php echo ($mod['link']['title'] !== '') ? $mod['link']['title'] : $mod['name'] ?></a>
+                        <?php else: ?>
+                            <?php echo $mod['name']; ?>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php 
+                        if ($mod['status'] == 'Новинка' ) {
+                            echo '<div class="status-label label_new">' . $mod['status'] . '</div>';
+                        } 
+                        elseif ($mod['status'] == 'End of life' ) {
+                            echo '<div class="status-label label_eol">' . $mod['status'] . '</div>';
+                        } else {
+                            echo $mod['status'];
+                        }
+                        ?>
+                    </td>
+
+                    <td><?php echo ( $mod['status'] !== 'End of life' ) ? $mod['price'] : '-' ?></td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
