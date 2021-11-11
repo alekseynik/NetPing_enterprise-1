@@ -164,7 +164,7 @@ function netping_news_post_type() {
 			'menu_icon'   => 'dashicons-media-document',
 			'rewrite'     => array('slug' => 'blog'),
 			'supports'    => [ 'title', 'editor', 'thumbnail', 'excerpt' ],
-			'taxonomy'    => [ 'news_tags', 'news_categories' ],
+			'taxonomies'    => [ 'news_tags', 'news_categories' ],
         )
     );
 }

@@ -41,26 +41,29 @@ $heading = apply_filters( 'woocommerce_product_description_heading', __( 'Descri
                 <?php foreach ($mod_fields[0] as $mod) : ?>
                 <tr>
                     <td>
-                        <?php if ( $mod['status'] == 'End of life' && isset($mod['link']) ) : ?>
-                            <a href="<?php echo $mod['link']['url'] ?>" <?php echo $mod['link']['target'] == '_blank' ? 'target="_blank"' : '' ?>><?php echo ($mod['link']['title'] !== '') ? $mod['link']['title'] : $mod['name'] ?></a>
+                        <?php if ( $mod['status'] == 'End of life' && isset($mod['link']) && $mod['link'] !== '' ) : ?>
+                            <a href="<?php echo $mod['link']['url'] ?>" <?php echo $mod['link']['target'] == '_blank' ? 'target="_blank"' : '' ?>><?php echo ( $mod['link']['title'] !== '' ) ? $mod['link']['title'] : $mod['name'] ?></a>
                         <?php else: ?>
                             <?php echo $mod['name']; ?>
                         <?php endif; ?>
                     </td>
                     <td>
                         <?php 
-                        if ($mod['status'] == 'Новинка' ) {
+                        if ( $mod['status'] == 'Новинка' ) {
                             echo '<div class="status-label label_new">' . $mod['status'] . '</div>';
                         } 
-                        elseif ($mod['status'] == 'End of life' ) {
+                        elseif ( $mod['status'] == 'End of life' && isset($mod['link']) && $mod['link'] == '') {
                             echo '<div class="status-label label_eol">' . $mod['status'] . '</div>';
+                        }
+                        elseif ( $mod['status'] == 'End of life' && isset($mod['link']) && $mod['link'] !== '') {
+                                echo '<div class="status-label label_eol">' . 'Архив' . '</div>';
                         } else {
                             echo $mod['status'];
                         }
                         ?>
                     </td>
 
-                    <td><?php echo ( $mod['status'] !== 'End of life' ) ? $mod['price'] : '-' ?></td>
+                    <td><?php echo ( $mod['status'] == 'End of life' && isset($mod['link']) && $mod['link'] !== '' ) ? '-' : $mod['price'] ?></td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
