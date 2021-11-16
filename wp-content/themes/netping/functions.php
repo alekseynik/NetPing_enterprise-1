@@ -621,9 +621,18 @@ function change_excerpt_length( $length ) {
 	}
 }
 
-//shortcode to include external files. Params: file - full path to external file, wrapper - tag to wrap with (default is pre), class - class for wrapper.
-add_shortcode( 'show_file', 'show_file_func' );
-function show_file_func( $atts ) {
+//shortcode to include external files. Params: file - path to external file in theme directory, wrapper - tag to wrap with (default is pre), class - class for wrapper.
+add_shortcode( 'show_file', 'show_external_file' );
+/**
+ * Shortcode to include external files from the theme directory.
+ * eg. [show_file file="changelog.md"]
+ * 
+ * @param string $file path to external file in the theme directory
+ * @param string $wrapper tag to wrap with (default is pre)
+ * @param string $class class for wrapper
+ * @return string
+ */
+function show_external_file( $atts ) {
 	extract( shortcode_atts( array(
 	    	'file'    => '',
 			'wrapper' => 'pre',
@@ -863,7 +872,7 @@ function alter_query($query) {
 		return;
 
 	if ( ! is_admin() && is_archive() ) {
-		$query-> set( 'posts_per_page', 20 );
+		$query-> set( 'posts_per_page', 12 );
 	}
 
 }
@@ -884,4 +893,12 @@ function add_spoiler_button_for_tags_cloud($return) {
 		$return .= $spoiler_html;
 	}
 	return $return;
+}
+
+//remove woocommerce pagination next/prev
+add_filter( 'woocommerce_pagination_args' , 'tq73et_override_pagination_args' );
+function tq73et_override_pagination_args( $args ) {
+	$args['prev_text'] = '';
+	$args['next_text'] = '';
+	return $args;
 }

@@ -153,6 +153,7 @@ hr {
 pre {
 	font-family: monospace, monospace;
 	font-size: 1em;
+	white-space: pre-wrap;
 }
 
 /* Text-level semantics
@@ -2588,18 +2589,29 @@ aside .entry-wrapper .widget-news-title {
 	background: linear-gradient(270deg, #00981E 0%, #0DCB32 100%);
 }
 
-.navigation.pagination {
+.navigation.pagination,
+.woocommerce-pagination {
     display: flex;
     justify-content: center;
 	font-size: 20px;
 	margin: 40px 0 80px;
 }
 
-.navigation.pagination .nav-links {
+.navigation.pagination .nav-links,
+.woocommerce-pagination .page-numbers {
 	display: flex;
 }
 
-.navigation.pagination .nav-links .page-numbers {
+.woocommerce-pagination .page-numbers li {
+	margin: 0;
+}
+
+.woocommerce-pagination .page-numbers li:before {
+	display: none;
+}
+
+.navigation.pagination .nav-links .page-numbers,
+.woocommerce-pagination .page-numbers {
 	color: #333;
 	text-decoration: none;
 	display: flex;
@@ -2610,18 +2622,21 @@ aside .entry-wrapper .widget-news-title {
 	border-radius: 10px;
 }
 
-.navigation.pagination .nav-links .page-numbers.current {
+.navigation.pagination .nav-links .page-numbers.current,
+.woocommerce-pagination .page-numbers.current {
 	background-color: #009331;
 	color: #fff;
 }
 
-.navigation.pagination .nav-links .page-numbers.prev {
+.navigation.pagination .nav-links .page-numbers.prev,
+.woocommerce-pagination .page-numbers.prev {
 	background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDggMTgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxsaW5lIHgxPSIwLjUiIHkxPSItMC41IiB4Mj0iMTAuNTI0NyIgeTI9Ii0wLjUiIHRyYW5zZm9ybT0ibWF0cml4KDAuNjM0OTM5IDAuNzcyNTYzIC0wLjQ2NTUyMSAwLjg4NTAzNyAwIDguOTQ3ODEpIiBzdHJva2U9IiMyNjI2MjYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBkPSJNMC40OTE5NTggOC44NTIwNUw2Ljk0NTM1IDAuOTk5ODgxIiBzdHJva2U9IiMyNjI2MjYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K);
 	background-repeat: no-repeat;
 	background-position: center;
 }
 
-.navigation.pagination .nav-links .page-numbers.next {
+.navigation.pagination .nav-links .page-numbers.next,
+.woocommerce-pagination .page-numbers.next {
 	background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDggMTgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxsaW5lIHgxPSIwLjUiIHkxPSItMC41IiB4Mj0iMTAuNTI0NyIgeTI9Ii0wLjUiIHRyYW5zZm9ybT0ibWF0cml4KC0wLjYzNDkzOSAwLjc3MjU2MyAwLjQ2NTUyMSAwLjg4NTAzNyA4IDguOTQ3ODEpIiBzdHJva2U9IiMyNjI2MjYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBkPSJNNy41MDgwNCA4Ljg1MjA1TDEuMDU0NjUgMC45OTk4ODEiIHN0cm9rZT0iIzI2MjYyNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPgo=);
 	background-repeat: no-repeat;
 	background-position: center;
